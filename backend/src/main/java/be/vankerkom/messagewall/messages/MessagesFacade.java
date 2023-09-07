@@ -28,7 +28,7 @@ public class MessagesFacade {
         final var savedMessage = this.messagesService.store(message);
         this.messageGatewayFacade.broadcast(savedMessage);
 
-        return message;
+        return savedMessage;
     }
 
 }

@@ -19,9 +19,10 @@ public class MessagesService {
     }
 
     public Message store(Message message) {
-        this.messages.add(message);
-        log.debug("Saved new message: {}", message);
-        return message;
+        final var storedMessage = message.withRandomId();
+        this.messages.add(storedMessage);
+        log.debug("Saved new message: {}", storedMessage);
+        return storedMessage;
     }
 
 }
