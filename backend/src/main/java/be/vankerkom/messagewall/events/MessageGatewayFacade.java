@@ -1,7 +1,6 @@
 package be.vankerkom.messagewall.events;
 
 import be.vankerkom.messagewall.messages.Message;
-import be.vankerkom.messagewall.messages.MessagesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -23,22 +22,12 @@ public class MessageGatewayFacade extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper;
     private final List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    private final MessagesService messagesService;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("New WebSocket connection from: {}", session.getRemoteAddress());
         super.afterConnectionEstablished(session);
         sessions.add(session);
-        sendMessages(session);
-    }
-
-    @SneakyThrows
-    private void sendMessages(WebSocketSession session) {
-        final var messages = this.messagesService.findAll();
-        final var payload = this.objectMapper.writeValueAsString(messages);
-        final var textMessage = new TextMessage(payload);
-        sendTo(session, textMessage);
     }
 
     @Override
