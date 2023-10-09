@@ -37,6 +37,12 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>org.msgpack</groupId>
+			<artifactId>jackson-dataformat-msgpack</artifactId>
+			<version>0.9.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
